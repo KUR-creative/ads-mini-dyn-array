@@ -5,6 +5,11 @@ BO는 비교 연산
 search, insert, delete를 구현해야 함.
 파이썬에서 prop test 연습하기.
 
+ [실험과 레포트]
+insert, search를 합쳐서 20 0000번 각각 십만번씩.
+search의 경우 못찾는 경우는 30%
+실험에서 BO(비교 연산)의 수행 횟수를 조사해야 함.
+
 각 알고리즘의 의사코드를 작성해야 함(search, insert, delete).
 BO가 비교 연산일 때 각 연산의 time complexity 구하기.
 insert의 amortized time complexity 구하고(이론) 실제로 비교 연산의 실행 횟수를 세어보기.
