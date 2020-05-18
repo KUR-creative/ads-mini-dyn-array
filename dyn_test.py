@@ -75,3 +75,20 @@ def test_binary_search(xs):
                   if non_targets else None)
     if non_targets:
         assert (not binary_search(targets, non_target))
+
+@given(st.lists(st.integers(), unique_by=F.identity))
+def test_search(xs):
+    targets = xs[:len(xs) // 2]
+    target = sample(targets, 1)[0] if targets else None
+    print('----------')
+    dyn_arr = dynamic_array(targets)
+    if target and targets:
+        pos, idx = search(dyn_arr, target)
+        print(targets, target, idx)
+        assert target == dyn_arr[pos][idx]
+    
+    non_targets = xs[len(xs) // 2:]
+    non_target = (sample(non_targets, 1)[0]
+                  if non_targets else None)
+    if non_targets:
+        assert (not search(dyn_arr, non_target))

@@ -7,6 +7,7 @@ def dynamic_array(xs=()):
         insert(ret, x)
     return ret
 
+#---------------------------------------------------------------
 def merge(sorted1, sorted2):
     i1,i2,idx = 0,0,0
     ret = [None] * (len(sorted1) + len(sorted2))
@@ -23,7 +24,8 @@ def merge(sorted1, sorted2):
     return ret
     
 def insert(dyn_arr, elem):
-    # Find position to add elem
+    # Find position to add elem.
+    # Position means index in dyn_arr
     pos = 0
     for idx,arr in enumerate(dyn_arr):
         if 2**idx < len(arr):
@@ -43,6 +45,7 @@ def insert(dyn_arr, elem):
             
     return dyn_arr
 
+#---------------------------------------------------------------
 def binary_search(sorted_lst, elem):
     if not sorted_lst:
         return None
@@ -61,3 +64,13 @@ def binary_search(sorted_lst, elem):
         else: #     mid < elem  # Basic Operation
             head = mid_idx
     return None
+
+def search(dyn_arr, elem):
+    for pos,arr in enumerate(dyn_arr):
+        if arr[0] <= elem <= arr[-1]: # Basic Operation 
+            idx = binary_search(arr, elem)
+            if idx != None:
+                return pos, idx
+    #return None
+
+#search([0,1]
