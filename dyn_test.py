@@ -27,17 +27,15 @@ def test_length_of_arrays_of_dyn_arr_are_all_different(xs):
     dyn_arr = dynamic_array()
     for x in xs:
         insert(dyn_arr, x)
-        
         assert len(dyn_arr) == len(F.ldistinct(dyn_arr, key=len))
 
 #@pytest.mark.skip(reason="no way of currently testing this")
 @given(st.lists(st.integers()))
 def test_added_elements_are_all_saved_to_dyn_arr(xs):
     dyn_arr = dynamic_array()
-    for x in xs:
-        print(insert(dyn_arr, x))
-
-    assert len(F.lflatten(dyn_arr)) == len(xs)
+    for num_inseerted, x in enumerate(xs, start=1):
+        insert(dyn_arr, x)
+        assert len(F.lflatten(dyn_arr)) == num_inseerted
     assert set(F.flatten(dyn_arr)) == set(xs)
     
 @given(st.iterables(st.integers()))
@@ -45,15 +43,15 @@ def test_arrays_of_dyn_arr_are_all_sorted_ascend(xs):
     dyn_arr = dynamic_array()
     for x in xs:
         insert(dyn_arr, x)
-    for arr in dyn_arr:
-        assert is_sorted(arr)
+        for arr in dyn_arr:
+            assert is_sorted(arr)
     
 @given(st.iterables(st.integers()))
 def test_length_of_arrays_of_dyn_arr_are_all_sorted_ascend(xs):
     dyn_arr = dynamic_array()
     for x in xs:
         insert(dyn_arr, x)
-    assert is_sorted(dyn_arr, len)
+        assert is_sorted(dyn_arr, len)
 
 @given(st.lists(st.integers()).map(sorted),
        st.lists(st.integers()).map(sorted))

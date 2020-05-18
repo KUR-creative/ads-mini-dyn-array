@@ -1,8 +1,11 @@
 def is_power_of_two(n):
     return (n != 0) and (n & (n-1) == 0)
 
-def dynamic_array():
-    return []
+def dynamic_array(xs=()):
+    ret = []
+    for x in xs:
+        insert(ret, x)
+    return ret
 
 def merge(sorted1, sorted2):
     i1,i2,idx = 0,0,0
