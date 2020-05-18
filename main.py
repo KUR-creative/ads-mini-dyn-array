@@ -20,19 +20,22 @@ def merge(sorted1, sorted2):
     return ret
     
 def insert(dyn_arr, elem):
-    '''
-    prev = []
-    for no,arr in enumerate(dyn_arr):
-        if len(arr) == 2**no:
-            prev = dyn_arr[no]
-            del dyn_arr[no]
-        else:
-            dyn_arr
-            prev = []
-    if prev:
-        dyn_arr.append(prev)
-    '''
-    if dyn_arr:
-        pass
-    else:
-        dyn_arr.append((elem,))
+    # Find position to add elem
+    pos = 0
+    for idx,arr in enumerate(dyn_arr):
+        if 2**idx < len(arr):
+            pos = idx; break
+        else: # 2**idx >= len(arr)
+            pos = pos + 1
+
+    # Merge previous elements with inserted elem
+    merged = [elem]
+    for idx in range(pos):
+        merged = merge(merged, dyn_arr[idx])
+
+    # Insert merged elements at pos
+    dyn_arr.insert(pos, merged)
+    for idx in range(pos): # Remove redundants
+        del dyn_arr[0]
+            
+    return dyn_arr
