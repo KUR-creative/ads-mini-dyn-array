@@ -9,10 +9,6 @@ def is_sorted(lst, key=F.identity):
     return all(
         key(lst[i]) <= key(lst[i+1])
         for i in range(len(lst) - 1))
-
-@given(st.lists(st.integers()).map(sorted))
-def test_ctor(xs):
-    print(xs)
     
 @given(st.iterables(st.integers()))
 def test_length_of_arrays_of_dyn_arr_are_all_pow_of_2(xs):
