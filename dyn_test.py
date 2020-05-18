@@ -1,3 +1,5 @@
+from random import sample
+
 import funcy as F
 import pytest
 from hypothesis import given
@@ -49,6 +51,7 @@ def test_length_of_arrays_of_dyn_arr_are_all_sorted_ascend(xs):
         insert(dyn_arr, x)
         assert is_sorted(dyn_arr, len)
 
+#---------------------------------------------------------------
 @given(st.lists(st.integers()).map(sorted),
        st.lists(st.integers()).map(sorted))
 def test_merge(xs, ys):
@@ -56,3 +59,19 @@ def test_merge(xs, ys):
     assert len(res) == len(xs) + len(ys)
     # check sorted
     is_sorted(res)
+
+@given(st.lists(st.integers(), unique_by=F.identity).map(sorted))
+def test_binary_search(xs):
+    targets = xs[:len(xs) // 2]
+    target = sample(targets, 1)[0] if targets else None
+    print('----------')
+    if target and targets:
+        idx = binary_search(targets, target)
+        print(targets, target, idx)
+        assert target == targets[idx]
+    
+    non_targets = xs[len(xs) // 2:]
+    non_target = (sample(non_targets, 1)[0]
+                  if non_targets else None)
+    if non_targets:
+        assert (not binary_search(targets, non_target))

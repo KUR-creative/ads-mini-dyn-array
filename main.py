@@ -42,3 +42,22 @@ def insert(dyn_arr, elem):
         del dyn_arr[0]
             
     return dyn_arr
+
+def binary_search(sorted_lst, elem):
+    if not sorted_lst:
+        return None
+    elif sorted_lst[0] == elem: # Basic Operation
+        return 0
+    
+    head, back = 0, len(sorted_lst)# - 1
+    while head + 1 != back:
+        mid_idx = head + (back - head) // 2
+        mid = sorted_lst[mid_idx]
+        print(head, back, mid_idx)
+        if elem == mid:         # Basic Operation
+            return mid_idx
+        elif elem < mid:        # Basic Operation
+            back = mid_idx
+        else: #     mid < elem  # Basic Operation
+            head = mid_idx
+    return None
