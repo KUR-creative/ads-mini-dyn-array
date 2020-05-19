@@ -92,3 +92,46 @@ def test_search(xs):
                   if non_targets else None)
     if non_targets:
         assert (not search(dyn_arr, non_target))
+
+@given(st.lists(st.integers(), min_size=1).flatmap(
+    lambda xs: st.tuples(
+        st.just(xs), st.sampled_from(xs)).map(list)))
+def test_delete_elem_but_property_always_hold(xs_x):
+    xs, x = xs_x 
+    dyn_arr = dynamic_array(xs)
+    
+    prev_len = len(F.lflatten(dyn_arr))
+    delete(dyn_arr, x)
+    assert prev_len - 1 == len(F.lflatten(dyn_arr))
+
+    # Generate integer sequence and samples.
+
+@given(st.lists(st.integers()))
+def test_delete_elements_but_property_always_hold(xs):
+    dyn_arr = dynamic_array(xs)
+    for x in xs:
+        prev_len = len(F.lflatten(dyn_arr))
+        delete(dyn_arr, x)
+        assert prev_len - 1 == len(F.lflatten(dyn_arr))
+        # dynamic array properties
+        for arr in dyn_arr:
+            assert is_sorted(arr)
+            assert is_power_of_two(len(arr))
+        assert len(dyn_arr) == len(F.ldistinct(dyn_arr, key=len))
+
+@given(st.lists(st.integers()).flatmap(
+    lambda xs: st.tuples(
+        st.just(xs),
+        st.integers().filter(lambda z: z not in xs))))
+def test_delete_elem_not_in_arr_then_nothing_happen(xs_z):
+    xs, z = xs_z
+    dyn_arr = dynamic_array(xs)
+    
+    prev_len = len(F.lflatten(dyn_arr))
+    delete(dyn_arr, z)
+    assert prev_len == len(F.lflatten(dyn_arr))
+    # dynamic array properties
+    for arr in dyn_arr:
+        assert is_sorted(arr)
+        assert is_power_of_two(len(arr))
+    assert len(dyn_arr) == len(F.ldistinct(dyn_arr, key=len))

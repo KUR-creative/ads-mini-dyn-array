@@ -73,4 +73,23 @@ def search(dyn_arr, elem):
                 return pos, idx
     #return None
 
-#search([0,1]
+#---------------------------------------------------------------
+def delete(dyn_arr, elem):
+    result = search(dyn_arr, elem)
+    if result:
+        pos,idx = result
+        del dyn_arr[pos][idx]
+
+        relocates = dyn_arr[pos]
+        del dyn_arr[pos]
+
+        for x in relocates:
+            insert(dyn_arr, x)
+    #return None
+
+#print(search(dyn_arr, 0))
+
+dyn_arr = dynamic_array([0])
+print(dyn_arr)
+delete(dyn_arr, 0)
+print(dyn_arr)
