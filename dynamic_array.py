@@ -19,6 +19,8 @@ def is_power_of_two(n):
     return (n != 0) and (n & (n-1) == 0)
 
 def dynamic_array(xs=()):
+    global comp_count
+    comp_count = 0
     ret = []
     for x in xs:
         insert(ret, x)
@@ -75,7 +77,6 @@ def binary_search(sorted_lst, elem):
     while head + 1 != back:
         mid_idx = head + (back - head) // 2
         mid = sorted_lst[mid_idx]
-        print(head, back, mid_idx)
         #if elem == mid:         # Basic Operation
         if eq(elem, mid):
             return mid_idx
@@ -108,10 +109,3 @@ def delete(dyn_arr, elem):
         for x in relocates:
             insert(dyn_arr, x)
     #return None
-
-#print(search(dyn_arr, 0))
-
-dyn_arr = dynamic_array([0])
-print(dyn_arr)
-delete(dyn_arr, 0)
-print(dyn_arr)
