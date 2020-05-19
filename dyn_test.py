@@ -5,7 +5,7 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
-from main import *
+from dynamic_array import *
 
 def is_sorted(lst, key=F.identity):
     return all(
